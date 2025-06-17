@@ -62,7 +62,7 @@ Launch the Flask app:
 python app.py
 ```
 
-Your local Flask server will start, and the terminal will show a URL (e.g., http://127.0.0.1:5000).Then open the URL shown in your terminal (e.g., http://127.0.0.1:5000) in your browser.
+Your local Flask server will start, and the terminal will show a URL (e.g., http://127.0.0.1:5000). Then open the URL shown in your terminal (e.g., http://127.0.0.1:5000) in your browser.
 
 ---
 
