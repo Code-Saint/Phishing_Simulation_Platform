@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Phishing Awareness</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right top, #ffe2e2, #fcdada, #fad3d3, #f8cccc, #f6c4c4);
+            background-size: cover;
+            background-attachment: fixed;
+            font-family: 'Segoe UI', sans-serif;
+            color: #2c2c2c;
+            padding: 40px;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 750px;
+            margin: 60px auto;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+        }
+
+        .alert-danger {
+            font-size: 1.5rem;
+            font-weight: bold;
+            border-radius: 12px;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li::marker {
+            color: #dc3545;
+        }
+
+        h4, h5 {
+            margin-top: 30px;
+        }
+
+        .btn-primary {
+            background-color: #dc3545;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #bb2d3b;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="glass-card">
+        <div class="alert alert-danger text-center">
+            ⚠️ You Just Fell for a Phishing Simulation!
+        </div>
+
+        <p class="lead text-center mb-4">
+            This was a <strong>simulated phishing attack</strong> designed to test your security awareness.
+        </p>
+
+        <hr>
+
+        <h4>🔍 Red Flags You Might Have Missed:</h4>
+        <ul>
+            <li>Unusual or suspicious URL or sender email</li>
+            <li>Urgent, alarming, or threatening language</li>
+            <li>Requests for sensitive information via email or strange links</li>
+        </ul>
+
+        <h5>🛡️ How to Stay Safe:</h5>
+        <ul>
+            <li>Always double-check the URL before logging in</li>
+            <li>Hover over links to preview them before clicking</li>
+            <li>Report any suspicious emails to your IT or Security team</li>
+        </ul>
+
+        <div class="text-center mt-4">
+            <a href="/" class="btn btn-primary btn-lg px-5">Return to Dashboard</a>
+        </div>
+    </div>
+
+</body>
+</html>

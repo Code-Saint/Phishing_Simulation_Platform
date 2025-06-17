@@ -1,0 +1,89 @@
+<!-- templates/send_email.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Send Phishing Email</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right top, #ffe3e3, #ffd6c9, #ffcda9, #ffe1a1, #ffeabf);
+            background-size: cover;
+            background-attachment: fixed;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+            padding: 40px;
+            max-width: 600px;
+            margin: 80px auto;
+            color: #4b2e2e; 
+        }
+
+        .form-control, .form-select {
+            border-radius: 12px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+        .btn-primary {
+            border-radius: 12px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="glass-card">
+        <!-- Logo -->
+        <div class="text-center mb-4">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="MockCorp Logo" class="brand-logo" style="max-height: 100px;">
+        </div>
+        
+        <h2>📧 Send Phishing Email</h2>
+        <form method="POST" action="{{ url_for('send_email') }}">
+            <div class="mb-3">
+                <label class="form-label">Recipient Name</label>
+                <input type="text" name="name" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Recipient Email</label>
+                <input type="email" name="email" class="form-control" required>
+            </div>
+            <div class="mb-4">
+                <label class="form-label">Choose Template</label>
+                <select name="template_id" class="form-select">
+                    {% for t in templates %}
+                    <option value="{{ t[0] }}">{{ t[1] }} ({{ t[3] }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} d-flex align-items-center gap-2" role="alert">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-check-circle-fill text-success" viewBox="0 0 16 16">
+                                <path d="M16 8a8 8 0 1 1-16 0 8 8 0 0 1 16 0zM6.97 11.03a.75.75 0 0 0 1.07 0l3.992-3.992a.75.75 0 1 0-1.06-1.06L7.5 9.44 5.53 7.47a.75.75 0 0 0-1.06 1.06l2.5 2.5z"/>
+                            </svg>
+                            <span>{{ message }}</span>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+
+            <button type="submit" class="btn btn-primary w-100">Send Email</button>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

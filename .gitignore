@@ -1,0 +1,25 @@
+# Python bytecode cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+config.cpython-312.pyc
+
+# Virtual environments (if used)
+venv/
+.env/
+
+# Environment config
+.env
+
+# Database
+instance/phishing.db
+*.sqlite3
+
+# Logs and system files
+*.log
+.DS_Store
+Thumbs.db
+
+# VS Code settings (optional)
+.vscode/

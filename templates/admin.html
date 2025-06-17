@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard - MockCorp</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+         body {
+            background: linear-gradient(to right top, #d0f0ff, #a5dfff, #7bcfff, #51bfff, #29afff);
+            background-attachment: fixed;
+            background-size: cover;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 40px;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            padding: 30px;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        h2 {
+            color: #003366;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .analytics-table {
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+        }
+        .brand-logo {
+            max-width: 150px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        th, td {
+            padding: 10px 16px;
+            border: 1px solid #dee2e6;
+            text-align: left;
+        }
+
+    </style>
+</head>
+<body class="container py-4">
+
+    <div class="glass-card">
+        <!-- Logo -->
+        <div class="text-center mb-4">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="MockCorp Logo" class="brand-logo" style="max-height: 150px;">
+        </div>
+
+        <h1 class="mb-4 text-center">📊 Phishing Campaign Dashboard</h1>
+
+        <div class="text-center mb-5">
+            <a href="{{ url_for('export_users') }}" class="btn btn-outline-primary me-2">Download User Report</a>
+            <a href="{{ url_for('export_analytics') }}" class="btn btn-outline-secondary">Download Analytics Report</a>
+        </div>
+
+        <div class="row text-center">
+            <div class="col-md-4">
+                <div class="card text-white bg-primary mb-3 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Emails Sent</h5>
+                        <p class="card-text fs-4">{{ total_sent }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-white bg-warning mb-3 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Links Clicked</h5>
+                        <p class="card-text fs-4">{{ total_clicked }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-white bg-danger mb-3 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Credentials Submitted</h5>
+                        <p class="card-text fs-4">{{ total_submitted }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="my-5">
+
+        <h2>User Activity</h2>
+        <table class="table table-bordered table-striped mt-3">
+            <thead class="table-light">
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Received</th>
+                    <th>Clicked</th>
+                    <th>Submitted Credentials</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user[1] }}</td>
+                    <td>{{ user[2] }}</td>
+                    <td>{{ user[4] }}</td>
+                    <td>{{ user[5] or '—' }}</td>
+                    <td>{{ user[6] or '—' }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h3 class="mt-5">Detailed User Analytics</h3>
+        {% for user in users %}
+            <h5 class="mt-4">{{ user[1] }} ({{ user[2] }})</h5>
+            {% set logs = analytics_by_user.get(user[0]) %}
+            {% if logs %}
+            <table class="table table-sm table-striped analytics-table">
+                <thead class="table-light">
+                    <tr>
+                        <th>Time</th>
+                        <th>IP</th>
+                        <th>User Agent</th>
+                        <th>Page</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for log in logs %}
+                    <tr>
+                        <td>{{ log[0] }}</td>
+                        <td>{{ log[1] }}</td>
+                        <td>{{ log[2][:30] }}...</td>
+                        <td>{{ log[3] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+                <p><em>No analytics data available.</em></p>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+</body>
+
+</html>
